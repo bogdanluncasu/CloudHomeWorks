@@ -1,0 +1,4 @@
+I used ip-api to get information about my location and used this info in weather api to get information about the weather in current city.
+Then I used two other apis to get a random joke and a random image and create a meme with PIL library.
+
+I joined the result of these apis and used gmail api to send them via email. 
