@@ -23,6 +23,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CCHW1.py" />
+    <Compile Include="homework.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="templates\index.html" />
+    <Content Include="static\styles\styles.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\styles\" />
+    <Folder Include="templates\" />
+    <Folder Include="js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

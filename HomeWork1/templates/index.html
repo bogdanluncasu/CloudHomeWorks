@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Send email to friend</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}" />
+</head>
+
+<body>
+    <div id="wrap">
+        <h1>Send a nice email to your friend!</h1>
+        <div id='form_wrap'>
+            <form action="/" method="post">
+                <label for="email">Sender's gmail address: </label>
+                <input type="text" name="senderEmail" value="" />
+
+                <label for="password">Sender's gmail password: </label>
+                <input type="password" name="senderPassword" value="" />
+
+                <br/>
+                <label for="email">Receiver's email: </label>
+                <input type="text" name="email" value="" />
+
+                <input type="submit" name="submit" value="Send it NOW" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>
