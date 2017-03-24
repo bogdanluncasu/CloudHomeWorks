@@ -1,0 +1,89 @@
+<html>
+<head>
+  <style type="text/css">
+	table { margin-left:auto; margin-right:auto; width: 551px; -webkit-user-select: none; }
+	td { height: 175px; width: 175px; text-align: center; font-size: 120px; border: 2px solid #cccccc; -webkit-border-radius: 10px;}
+  </style>
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+  <script>
+	var gamestart = false;
+	var first = false;
+	var yourturn = false;
+	var pressed;	
+		
+		
+	  $(function(){
+		var socket = io.connect();
+		pressed=function(i){
+			if(gamestart&&yourturn&&$("#"+(i-1)).text()==''){
+				if(first){
+					$("#"+(i-1)).html("X");
+					socket.emit('turn', i-1);
+				}else{
+					$("#"+(i-1)).html("O");
+					socket.emit('turn', i-1);
+				}
+			}
+		}
+		socket.on('connect', function () {
+		  socket.on('startgame', function(message) {
+			gamestart=true;
+			
+			if(message=="FIRST"){
+				first=true;
+				yourturn=true;
+			}
+			turn=(first==true?"first":"second")
+			$('#status').html("Game started. You move "+turn);
+		  });
+		  
+		  socket.on('turn', function(message) {
+			yourturn=true;
+			if(first)
+				$("#"+message).html("O");
+			else
+				$("#"+message).html("X");
+		  });
+		  
+		  socket.on('stay',function(message){
+			yourturn=false;
+		  });
+		  
+		  socket.on('over', function(message){
+			gamestart=false;
+			$('#status').html(message);
+			console.log("GameOver: "+message);
+		  });
+		  
+		  socket.on('disconnect', function() {
+			socket.send("OVER");
+		  });
+		});
+
+	  });
+	
+  </script>
+</head>
+<body>
+	<p style="text-align:center">Hello warrior, are you ready to conquer the tic tac toe's world</p>
+	<div id="status" style="text-align:center">Waiting for player.</div>
+	<table>
+	  <tr>
+		<td id="0" onclick="pressed(1)"></td>
+		<td id="1" onclick="pressed(2)"></td>
+		<td id="2" onclick="pressed(3)"></td>
+	  </tr>
+	  <tr>
+		<td id="3" onclick="pressed(4)"></td>
+		<td id="4" onclick="pressed(5)"></td>
+		<td id="5" onclick="pressed(6)"></td>
+	  </tr>
+	  <tr>
+		<td id="6" onclick="pressed(7)"></td>
+		<td id="7" onclick="pressed(8)"></td>
+		<td id="8" onclick="pressed(9)"></td>
+	  </tr>
+	</table>
+</body>
+</html>
